@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Madonruoka</string>
+    <string name="action_settings">Settings</string>
+    <string name="food">Food</string>
+    <string name="amount">Amount</string>
+    <string name="extra">Notes</string>
+    <string name="ate">Ate? </string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="date">Date</string>
+
+</resources>

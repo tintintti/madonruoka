@@ -1,3 +1,3 @@
 # Madonruoka
 
-Simple app for tracking snake (or other reptile) feeding times.
+Simple app for keeping track of snake (or other reptile) feeding times.

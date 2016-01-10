@@ -6,7 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import tintintti.madonruoka.data.Info;
+import tintintti.madonruoka.data.Entry;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,14 +15,14 @@ import java.util.List;
 /**
  * Class for adding, removing and getting database info.
  */
-public class InfoDataSource {
+public class EntryDataSource {
     private SQLiteDatabase db;
     private FeedingInfoDbHelper dbHelper;
     private String[] allColumns = {FeedingInfoDbHelper.COLUMN_ID,
             FeedingInfoDbHelper.COLUMN_DATE, FeedingInfoDbHelper.COLUMN_FOODITEM,
             FeedingInfoDbHelper.COLUMN_AMOUNT, FeedingInfoDbHelper.COLUMN_ATE, FeedingInfoDbHelper.COLUMN_EXTRA};
 
-    public InfoDataSource(Context context) {
+    public EntryDataSource(Context context) {
         dbHelper = new FeedingInfoDbHelper(context);
     }
 
@@ -42,9 +42,9 @@ public class InfoDataSource {
      * @param amount    amount of food
      * @param ate       was the food eaten
      * @param extra     extra notes
-     * @return          Info-object that was added to the database
+     * @return          Entry-object that was added to the database
      */
-    public Info createInfo(String date, String food, double amount, boolean ate, String extra) {
+    public Entry createInfo(String date, String food, double amount, boolean ate, String extra) {
 
         ContentValues values = new ContentValues();
         values.put(FeedingInfoDbHelper.COLUMN_DATE, date);
@@ -61,7 +61,7 @@ public class InfoDataSource {
                 FeedingInfoDbHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
         cursor.moveToFirst();
 
-        Info newInfo = cursorToInfo(cursor);
+        Entry newInfo = cursorToInfo(cursor);
         cursor.close();
 
         return newInfo;
@@ -69,11 +69,11 @@ public class InfoDataSource {
 
     /**
      * Removes given entry from the database.
-     * @param info Info to be added to database
+     * @param info Entry to be added to database
      */
-    public void deleteInfo(Info info) {
+    public void deleteInfo(Entry info) {
         long id = info.getId();
-        System.out.println("Info deleted with id: " + id);
+        System.out.println("Entry deleted with id: " + id);
         db.delete(FeedingInfoDbHelper.TABLE_NAME, FeedingInfoDbHelper.COLUMN_ID + " = " + id, null);
     }
 
@@ -81,15 +81,15 @@ public class InfoDataSource {
      *
      * @return a list of the entries in the database
      */
-    public List<Info> getAllInfo() {
-        List<Info> allInfo = new ArrayList<>();
+    public List<Entry> getAllInfo() {
+        List<Entry> allInfo = new ArrayList<>();
 
         Cursor cursor = db.query(FeedingInfoDbHelper.TABLE_NAME, allColumns, null, null, null, null, null);
 
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            Info info = cursorToInfo(cursor);
+            Entry info = cursorToInfo(cursor);
             allInfo.add(info);
             cursor.moveToNext();
         }
@@ -99,8 +99,8 @@ public class InfoDataSource {
         return allInfo;
     }
 
-    private Info cursorToInfo(Cursor cursor) {
-        Info info = new Info();
+    private Entry cursorToInfo(Cursor cursor) {
+        Entry info = new Entry();
 
         info.setId(cursor.getLong(0));
         info.setDate(cursor.getString(1));

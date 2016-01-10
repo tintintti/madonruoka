@@ -8,7 +8,7 @@ import android.util.Log;
 /**
  * Creates and upgrades the database, and stores the table and column names for easy access.
  */
-public class FeedingInfoDbHelper extends SQLiteOpenHelper {
+public class    FeedingInfoDbHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "entry";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_DATE = "date";

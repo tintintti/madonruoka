@@ -5,10 +5,10 @@ import java.util.Comparator;
 /**
  * Class for comparing Infos
  */
-public class InfoComparator implements Comparator<Info> {
+public class EntryComparator implements Comparator<Entry> {
 
     @Override
-    public int compare(Info lhs, Info rhs) {
+    public int compare(Entry lhs, Entry rhs) {
         return rhs.compareTo(lhs);
     }
 }

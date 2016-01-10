@@ -1,61 +1,51 @@
 package tintintti.madonruoka.activities;
 
-import android.app.ListActivity;
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ListView;
 
-import tintintti.madonruoka.adapters.CustomArrayAdapter;
-import tintintti.madonruoka.data.InfoComparator;
 import tintintti.madonruoka.R;
-import tintintti.madonruoka.data.Info;
-import tintintti.madonruoka.db.InfoDataSource;
+import tintintti.madonruoka.data.Entry;
+import tintintti.madonruoka.db.EntryDataSource;
+import tintintti.madonruoka.fragments.ConfirmDeletionFragment;
+import tintintti.madonruoka.fragments.ListFeedingEntries;
+import tintintti.madonruoka.fragments.ShowInfo;
+import tintintti.madonruoka.interfaces.OnConfirmedListener;
+import tintintti.madonruoka.interfaces.OnListItemClickedListener;
+import tintintti.madonruoka.interfaces.ShowInfoFragmentListener;
 
-import java.sql.SQLException;
-import java.util.List;
+public class MainActivity extends AppCompatActivity implements OnListItemClickedListener,
+        OnConfirmedListener, ShowInfoFragmentListener {
 
-public class MainActivity extends ListActivity {
-    private InfoDataSource dataSource;
-    private CustomArrayAdapter<Info> adapter;
+    private EntryDataSource dataSource;
+    private ListFeedingEntries listFragment;
     private static final int REQUEST_CODE_ADD = 1;
-    private static final int REQUEST_CODE_EDIT = 2;
+    private static final int REQUEST_CODE_REMOVE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dataSource = new InfoDataSource(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        /*
-        Gets all the entries from the database and sets them as values for the CustomArrayAdapter
-        which is set as the ListAdapter
-         */
-        try {
-            dataSource.open();
-            List<Info> values = dataSource.getAllInfo();
+        dataSource = new EntryDataSource(this);
 
-            adapter = new CustomArrayAdapter<>(this, android.R.layout.simple_list_item_1, values);
-            adapter.sort(new InfoComparator());
-            setListAdapter(adapter);
+        listFragment = new ListFeedingEntries();
 
-        } catch (SQLException e) {
-            System.out.println("InfoDataSource couldn't be opened.");
+        if (findViewById(R.id.fragment_container) != null) {
+            if (savedInstanceState != null) {
+                return;
+            }
+            getFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, listFragment).commit();
         }
 
-
-    }
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-
-        Info info = (Info) getListAdapter().getItem(position);
-
-        Intent i = new Intent(this, ShowInfo.class);
-        i.putExtra("info", info);
-        System.out.println(info.getId());
-        startActivityForResult(i, REQUEST_CODE_EDIT);
     }
 
     public void addInfo(View view) {
@@ -64,26 +54,55 @@ public class MainActivity extends ListActivity {
     }
 
     @Override
+    public void onListItemClicked(Entry entry) {
+
+        ShowInfo show = new ShowInfo();
+        Bundle args = new Bundle();
+        args.putSerializable("entry", entry);
+
+        show.setArguments(args);
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.fragment_container, show);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
+
+    }
+
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_ADD && data.hasExtra("info")) {
-            Info info = (Info) data.getSerializableExtra("info");
-            if (info != null) {
-                adapter.add(info);
-            }
-        } else if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_EDIT
-                && data.hasExtra("remove")) {
-
-            if (data.getBooleanExtra("remove", false)) {
-                Info info = (Info) data.getSerializableExtra("info");
-                dataSource.deleteInfo(info);
-
-                List<Info> values = dataSource.getAllInfo();
-
-                adapter.clear();
-                adapter.addAll(values);
-                adapter.sort(new InfoComparator());
+            Entry entry = (Entry) data.getSerializableExtra("info");
+            if (entry != null) {
+                listFragment.addEntryToList(entry);
             }
         }
+    }
+
+    @Override
+    public void onConfirmed(Entry entry) {
+        listFragment.removeEntryFromList(entry);
+        backToList();
+    }
+
+    @Override
+    public void onRemoveEntryClicked(Entry entry) {
+        Bundle args = new Bundle();
+        args.putSerializable("entry", entry);
+        DialogFragment dialog = new ConfirmDeletionFragment();
+        dialog.setArguments(args);
+        dialog.show(getFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void backToList() {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.fragment_container, listFragment);
+        transaction.commit();
     }
 
 

@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Class stores the feeding info of one entry
  */
-public class Info implements Serializable, Comparable<Info> {
+public class Entry implements Serializable, Comparable<Entry> {
     private long id;
     private String date;
     private String foodItem;
@@ -72,7 +72,7 @@ public class Info implements Serializable, Comparable<Info> {
 
 
     @Override
-    public int compareTo(Info another) {
+    public int compareTo(Entry another) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date d  = sdf.parse(date, new ParsePosition(0));

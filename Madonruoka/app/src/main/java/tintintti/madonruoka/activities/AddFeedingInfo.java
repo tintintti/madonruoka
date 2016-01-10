@@ -12,21 +12,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import tintintti.madonruoka.R;
-import tintintti.madonruoka.data.Info;
-import tintintti.madonruoka.db.InfoDataSource;
+import tintintti.madonruoka.data.Entry;
+import tintintti.madonruoka.db.EntryDataSource;
 import tintintti.madonruoka.fragments.DatePickerFragment;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Activity for adding an entry.
  */
 public class AddFeedingInfo extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    private InfoDataSource dataSource;
-    private Info info;
+    private EntryDataSource dataSource;
+    private Entry info;
     private TextView dateView;
     private Calendar calendar;
     private SimpleDateFormat format;
@@ -39,14 +40,14 @@ public class AddFeedingInfo extends AppCompatActivity implements DatePickerDialo
         calendar = Calendar.getInstance();
         setCurrentDateToDateView();
 
-        dataSource = new InfoDataSource(this);
+        dataSource = new EntryDataSource(this);
 
     }
 
     private void setCurrentDateToDateView() {
         dateView   = (TextView) findViewById(R.id.date);
 
-        format = new SimpleDateFormat("dd/MM/yyyy");
+        format = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
         dateView.setText(format.format(calendar.getTimeInMillis()));
     }
@@ -62,7 +63,7 @@ public class AddFeedingInfo extends AppCompatActivity implements DatePickerDialo
 
 
     /**
-     * Adds an entry to the database and returns to MainActivity
+     * Adds an entry to the database and returns to ListFeedingEntries
      * @param view
      */
     public void add(View view) {
@@ -97,7 +98,7 @@ public class AddFeedingInfo extends AppCompatActivity implements DatePickerDialo
     }
 
     /**
-     * Puts the added entry to Intent and returns it to MainActivity
+     * Puts the added entry to Intent and returns it to ListFeedingEntries
      */
     @Override
     public void finish(){

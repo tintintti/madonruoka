@@ -7,6 +7,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import tintintti.madonruoka.R;
+import tintintti.madonruoka.data.Entry;
 import tintintti.madonruoka.interfaces.OnConfirmedListener;
 
 /**
@@ -14,6 +16,9 @@ import tintintti.madonruoka.interfaces.OnConfirmedListener;
  */
 public class ConfirmDeletionFragment extends DialogFragment {
 
+    public ConfirmDeletionFragment() {
+
+    }
 
     /**
      * Creates the dialog for asking user confirmation.
@@ -23,22 +28,24 @@ public class ConfirmDeletionFragment extends DialogFragment {
      */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final Entry entry = (Entry) getArguments().getSerializable("entry");
+
         return new AlertDialog.Builder(getActivity())
                 // set dialog icon
                 .setIcon(android.R.drawable.stat_notify_error)
                         // set Dialog Title
-                .setTitle("Delete")
+                .setTitle(R.string.delete)
                         // Set Dialog Message
-                .setMessage("Are you sure you want to delete this entry?")
+                .setMessage(R.string.are_you_sure)
 
                         // positive button
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        ((OnConfirmedListener) getActivity()).onConfirmed();
+                        ((OnConfirmedListener) getActivity()).onConfirmed(entry);
                     }
                 })
                         // negative button
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }

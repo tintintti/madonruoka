@@ -9,5 +9,9 @@
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="date">Date</string>
+    <string name="are_you_sure">Are you sure you want to delete this entry?</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="ate_info">Ate</string>
+    <string name="didnt_eat">Didn\'t eat</string>
 
 </resources>

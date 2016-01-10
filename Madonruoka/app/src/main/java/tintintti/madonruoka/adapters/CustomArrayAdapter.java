@@ -3,7 +3,7 @@ package tintintti.madonruoka.adapters;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 
-import tintintti.madonruoka.data.InfoComparator;
+import tintintti.madonruoka.data.EntryComparator;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class CustomArrayAdapter<Info> extends ArrayAdapter {
     public void add(Object o) {
         Info info = (Info) o;
         super.add(info);
-        super.sort(new InfoComparator());
+        super.sort(new EntryComparator());
     }
 
 }

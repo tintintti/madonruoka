@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activities.ShowInfo">
+    tools:context=".fragments.ShowInfo">
 
     <Button
         android:layout_width="wrap_content"
@@ -16,8 +16,7 @@
         android:id="@+id/remove"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="removeInfo" />
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,8 +71,7 @@
         android:id="@+id/back"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="goBack" />
+        android:layout_alignParentStart="true" />
 
 
 

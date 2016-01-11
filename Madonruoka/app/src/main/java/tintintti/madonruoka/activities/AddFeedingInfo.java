@@ -27,7 +27,7 @@ import java.util.Locale;
 public class AddFeedingInfo extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private EntryDataSource dataSource;
-    private Entry info;
+    private Entry entry;
     private TextView dateView;
     private Calendar calendar;
     private SimpleDateFormat format;
@@ -85,7 +85,7 @@ public class AddFeedingInfo extends AppCompatActivity implements DatePickerDialo
 
         try {
             dataSource.open();
-            info = dataSource.createInfo(date, food, amount, ate, extra);
+            entry = dataSource.createInfo(date, food, amount, ate, extra);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -103,7 +103,7 @@ public class AddFeedingInfo extends AppCompatActivity implements DatePickerDialo
     @Override
     public void finish(){
         Intent i = new Intent();
-        i.putExtra("info", info);
+        i.putExtra("entry", entry);
         setResult(RESULT_OK, i);
         super.finish();
     }

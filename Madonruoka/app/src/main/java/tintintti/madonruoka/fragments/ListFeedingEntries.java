@@ -2,12 +2,15 @@ package tintintti.madonruoka.fragments;
 
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
+import tintintti.madonruoka.R;
 import tintintti.madonruoka.adapters.CustomArrayAdapter;
-import tintintti.madonruoka.data.EntryComparator;
 import tintintti.madonruoka.data.Entry;
+import tintintti.madonruoka.data.EntryComparator;
 import tintintti.madonruoka.db.EntryDataSource;
 import tintintti.madonruoka.interfaces.OnListItemClickedListener;
 
@@ -16,7 +19,15 @@ import java.util.List;
 
 public class ListFeedingEntries extends ListFragment {
     private EntryDataSource dataSource;
-    private CustomArrayAdapter<Entry> adapter;
+    private CustomArrayAdapter adapter;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.etry_list_fragment, container, false);
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -24,17 +35,16 @@ public class ListFeedingEntries extends ListFragment {
 
         dataSource = new EntryDataSource(getActivity());
 
-        /*
-        Gets all the entries from the database and sets them as values for the CustomArrayAdapter
-        which is set as the ListAdapter
-         */
+
+        //Gets all the entries from the database and sets them as values for the CustomArrayAdapter
         try {
             dataSource.open();
 
             List<Entry> values = dataSource.getAllInfo();
 
+            System.out.println(getView());
 
-            adapter = new CustomArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, values);
+            adapter = new CustomArrayAdapter(getActivity(), R.layout.enty_list, R.id.entry, values);
             adapter.sort(new EntryComparator());
             setListAdapter(adapter);
 
@@ -47,18 +57,18 @@ public class ListFeedingEntries extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Entry info = (Entry) getListAdapter().getItem(position);
+        Entry entry = (Entry) getListAdapter().getItem(position);
 
         OnListItemClickedListener listener = (OnListItemClickedListener) getActivity();
-        listener.onListItemClicked(info);
+        listener.onListItemClicked(entry);
     }
 
-    public void addEntryToList(Entry info) {
-        adapter.add(info);
+    public void addEntryToList(Entry entry) {
+        adapter.add(entry);
     }
 
-    public void removeEntryFromList(Entry info) {
-        dataSource.deleteInfo(info);
+    public void removeEntryFromList(Entry entry) {
+        dataSource.deleteInfo(entry);
 
         List<Entry> values = dataSource.getAllInfo();
 

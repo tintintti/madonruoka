@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements OnListItemClicked
     private EntryDataSource dataSource;
     private ListFeedingEntries listFragment;
     private static final int REQUEST_CODE_ADD = 1;
-    private static final int REQUEST_CODE_REMOVE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements OnListItemClicked
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_ADD && data.hasExtra("info")) {
-            Entry entry = (Entry) data.getSerializableExtra("info");
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_ADD && data.hasExtra("entry")) {
+            Entry entry = (Entry) data.getSerializableExtra("entry");
             if (entry != null) {
                 listFragment.addEntryToList(entry);
             }

@@ -21,20 +21,29 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/info"
+        android:id="@+id/textView3"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_alignLeft="@+id/date_info"
+        android:layout_alignStart="@+id/date_info" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/date_info"
-        android:layout_alignTop="@+id/remove"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="@string/date"/>
+        android:text="@string/date"
+        android:layout_alignBottom="@+id/ate_info"
+        android:layout_toRightOf="@+id/ate_info"
+        android:layout_toEndOf="@+id/ate_info" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/food"
         android:id="@+id/food_info"
-        android:layout_below="@+id/remove"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/date_info"
+        android:layout_alignLeft="@+id/date_info"
+        android:layout_alignStart="@+id/date_info" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,8 +51,8 @@
         android:id="@+id/amount_info"
         android:text="@string/amount"
         android:layout_below="@+id/food_info"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/food_info"
+        android:layout_alignStart="@+id/food_info" />
 
 
 
@@ -53,16 +62,28 @@
         android:id="@+id/extra_info"
         android:text="@string/extra"
         android:layout_below="@+id/amount_info"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/amount_info"
+        android:layout_alignStart="@+id/amount_info" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ate"
+        android:id="@+id/textView4"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:id="@+id/ate_info"
-        android:layout_alignTop="@+id/date_info"
-        android:layout_centerHorizontal="true" />
+        android:src="@drawable/ic_done_24dp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"/>
 
     <Button
         android:layout_width="wrap_content"

@@ -13,5 +13,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="ate_info">Ate</string>
     <string name="didnt_eat">Didn\'t eat</string>
+    <string name="info">Info:</string>
 
 </resources>

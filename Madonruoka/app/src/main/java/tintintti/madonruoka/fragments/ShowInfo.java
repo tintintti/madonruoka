@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import tintintti.madonruoka.data.Entry;
@@ -13,7 +14,7 @@ import tintintti.madonruoka.R;
 import tintintti.madonruoka.interfaces.ShowInfoFragmentListener;
 
 /**
- * Shows the info of an individual entry.
+ * Shows the entry of an individual entry.
  */
 public class ShowInfo extends Fragment {
     private Entry entry;
@@ -56,11 +57,11 @@ public class ShowInfo extends Fragment {
      */
     private void setTextsToViews(View view) {
 
-        TextView dateView   = (TextView) view.findViewById(R.id.date_info);
-        TextView foodView   = (TextView) view.findViewById(R.id.food_info);
-        TextView amountView = (TextView) view.findViewById(R.id.amount_info);
-        TextView extraView  = (TextView) view.findViewById(R.id.extra_info);
-        TextView ateView    = (TextView) view.findViewById(R.id.ate_info);
+        TextView  dateView   = (TextView) view.findViewById(R.id.date_info);
+        TextView  foodView   = (TextView) view.findViewById(R.id.food_info);
+        TextView  amountView = (TextView) view.findViewById(R.id.amount_info);
+        TextView  extraView  = (TextView) view.findViewById(R.id.extra_info);
+        ImageView ateView    = (ImageView) view.findViewById(R.id.ate_info);
 
         dateView.setText(entry.getDate());
         foodView.setText(entry.getFoodItem());
@@ -68,9 +69,9 @@ public class ShowInfo extends Fragment {
         amountView.setText(amount);
         extraView.setText(entry.getExtra());
         if (entry.isAte()) {
-            ateView.setText(R.string.ate_info);
+            ateView.setImageResource(R.drawable.ic_done_24dp);
         } else {
-            ateView.setText(R.string.didnt_eat);
+            ateView.setImageResource(R.drawable.ic_clear_24dp);
         }
     }
 

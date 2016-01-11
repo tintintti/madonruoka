@@ -61,18 +61,18 @@ public class EntryDataSource {
                 FeedingInfoDbHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
         cursor.moveToFirst();
 
-        Entry newInfo = cursorToInfo(cursor);
+        Entry newEntry = cursorToInfo(cursor);
         cursor.close();
 
-        return newInfo;
+        return newEntry;
     }
 
     /**
      * Removes given entry from the database.
-     * @param info Entry to be added to database
+     * @param entry Entry to be added to database
      */
-    public void deleteInfo(Entry info) {
-        long id = info.getId();
+    public void deleteInfo(Entry entry) {
+        long id = entry.getId();
         System.out.println("Entry deleted with id: " + id);
         db.delete(FeedingInfoDbHelper.TABLE_NAME, FeedingInfoDbHelper.COLUMN_ID + " = " + id, null);
     }
@@ -82,40 +82,40 @@ public class EntryDataSource {
      * @return a list of the entries in the database
      */
     public List<Entry> getAllInfo() {
-        List<Entry> allInfo = new ArrayList<>();
+        List<Entry> allEntries = new ArrayList<>();
 
         Cursor cursor = db.query(FeedingInfoDbHelper.TABLE_NAME, allColumns, null, null, null, null, null);
 
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            Entry info = cursorToInfo(cursor);
-            allInfo.add(info);
+            Entry entry = cursorToInfo(cursor);
+            allEntries.add(entry);
             cursor.moveToNext();
         }
 
         cursor.close();
 
-        return allInfo;
+        return allEntries;
     }
 
     private Entry cursorToInfo(Cursor cursor) {
-        Entry info = new Entry();
+        Entry entry = new Entry();
 
-        info.setId(cursor.getLong(0));
-        info.setDate(cursor.getString(1));
-        info.setFoodItem(cursor.getString(2));
-        info.setAmount(cursor.getDouble(3));
+        entry.setId(cursor.getLong(0));
+        entry.setDate(cursor.getString(1));
+        entry.setFoodItem(cursor.getString(2));
+        entry.setAmount(cursor.getDouble(3));
 
         int i = cursor.getInt(4);
         if (i == 0) {
-            info.setAte(false);
+            entry.setAte(false);
         } else {
-            info.setAte(true);
+            entry.setAte(true);
         }
 
-        info.setExtra(cursor.getString(5));
+        entry.setExtra(cursor.getString(5));
 
-        return info;
+        return entry;
     }
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Class stores the feeding info of one entry
@@ -74,7 +75,7 @@ public class Entry implements Serializable, Comparable<Entry> {
     @Override
     public int compareTo(Entry another) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         Date d  = sdf.parse(date, new ParsePosition(0));
         Date d2 = sdf.parse(another.date, new ParsePosition(0));
 

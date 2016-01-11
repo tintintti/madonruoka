@@ -1,6 +1,7 @@
 package tintintti.madonruoka.activities;
 
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements OnListItemClicked
 
     private EntryDataSource dataSource;
     private ListFeedingEntries listFragment;
+    private FragmentManager fragmentManager;
     private static final int REQUEST_CODE_ADD = 1;
 
     @Override
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements OnListItemClicked
                     .add(R.id.fragment_container, listFragment).commit();
         }
 
+        fragmentManager = getFragmentManager();
+
     }
 
     public void addInfo(View view) {
@@ -61,11 +65,10 @@ public class MainActivity extends AppCompatActivity implements OnListItemClicked
 
         show.setArguments(args);
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         transaction.replace(R.id.fragment_container, show);
         transaction.addToBackStack(null);
-
         transaction.commit();
 
     }
@@ -101,7 +104,17 @@ public class MainActivity extends AppCompatActivity implements OnListItemClicked
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         transaction.replace(R.id.fragment_container, listFragment);
+        transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fragmentManager.getBackStackEntryCount() != 0) {
+            fragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
 

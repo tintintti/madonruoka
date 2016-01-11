@@ -101,11 +101,12 @@ public class MainActivity extends AppCompatActivity implements OnListItemClicked
 
     @Override
     public void backToList() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        /*FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         transaction.replace(R.id.fragment_container, listFragment);
-        transaction.addToBackStack(null);
         transaction.commit();
+        */
+        fragmentManager.popBackStack();
     }
 
     @Override

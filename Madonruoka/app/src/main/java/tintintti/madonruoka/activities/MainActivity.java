@@ -11,7 +11,6 @@ import android.view.View;
 
 import tintintti.madonruoka.R;
 import tintintti.madonruoka.data.Entry;
-import tintintti.madonruoka.db.EntryDataSource;
 import tintintti.madonruoka.fragments.ConfirmDeletionFragment;
 import tintintti.madonruoka.fragments.ListFeedingEntries;
 import tintintti.madonruoka.fragments.ShowInfo;
@@ -22,7 +21,6 @@ import tintintti.madonruoka.interfaces.ShowInfoFragmentListener;
 public class MainActivity extends AppCompatActivity implements OnListItemClickedListener,
         OnConfirmedListener, ShowInfoFragmentListener {
 
-    private EntryDataSource dataSource;
     private ListFeedingEntries listFragment;
     private FragmentManager fragmentManager;
     private static final int REQUEST_CODE_ADD = 1;
@@ -34,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements OnListItemClicked
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        dataSource = new EntryDataSource(this);
 
         listFragment = new ListFeedingEntries();
 

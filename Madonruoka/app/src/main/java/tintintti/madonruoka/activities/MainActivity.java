@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements OnListItemClicked
     private ListFeedingEntries listFragment;
     private FragmentManager fragmentManager;
     private static final int REQUEST_CODE_ADD = 1;
+    private String petName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +46,13 @@ public class MainActivity extends AppCompatActivity implements OnListItemClicked
 
         fragmentManager = getFragmentManager();
 
+        petName = "pet";
+
     }
 
     public void addInfo(View view) {
         Intent i = new Intent(this, AddFeedingInfo.class);
+        i.putExtra("petName", petName);
         startActivityForResult(i, REQUEST_CODE_ADD);
     }
 

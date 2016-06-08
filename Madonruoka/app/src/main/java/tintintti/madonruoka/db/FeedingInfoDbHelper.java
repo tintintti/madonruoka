@@ -11,17 +11,19 @@ import android.util.Log;
 public class    FeedingInfoDbHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "entry";
     public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_PETNAME = "petName";
     public static final String COLUMN_DATE = "date";
-    public static final String COLUMN_FOODITEM = "fooditem";
+    public static final String COLUMN_FOODITEM = "foodItem";
     public static final String COLUMN_AMOUNT = "amount";
     public static final String COLUMN_ATE = "ate";
     public static final String COLUMN_EXTRA = "extra";
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "FeedingInfo.db";
 
     private static final String DATABASE_CREATE = "create table " + TABLE_NAME + "("
             + COLUMN_ID       + " integer primary key autoincrement, "
+            + COLUMN_PETNAME + " text, "
             + COLUMN_DATE     + " text not null, "
             + COLUMN_FOODITEM + " text, "
             + COLUMN_AMOUNT   + " real, "

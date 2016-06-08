@@ -16,6 +16,15 @@ public class Entry implements Serializable, Comparable<Entry> {
     private double amount;
     private String extra;
     private boolean ate;
+    private String petName;
+
+    public String getPetName() {
+        return petName;
+    }
+
+    public void setPetName(String petName) {
+        this.petName = petName;
+    }
 
     public String getExtra() {
         return extra;

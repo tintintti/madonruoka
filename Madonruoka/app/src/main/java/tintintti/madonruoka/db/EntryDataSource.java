@@ -37,6 +37,7 @@ public class EntryDataSource {
     /**
      * Creates a new entry to the database.
      *
+     * @param petName   the pet whose feeding info is added
      * @param date      date of entry
      * @param food      food given
      * @param amount    amount of food
@@ -44,9 +45,10 @@ public class EntryDataSource {
      * @param extra     extra notes
      * @return          Entry-object that was added to the database
      */
-    public Entry createInfo(String date, String food, double amount, boolean ate, String extra) {
+    public Entry createInfo(String petName, String date, String food, double amount, boolean ate, String extra) {
 
         ContentValues values = new ContentValues();
+        values.put(FeedingInfoDbHelper.COLUMN_PETNAME, petName);
         values.put(FeedingInfoDbHelper.COLUMN_DATE, date);
         values.put(FeedingInfoDbHelper.COLUMN_FOODITEM, food);
         values.put(FeedingInfoDbHelper.COLUMN_AMOUNT, amount);
@@ -81,7 +83,7 @@ public class EntryDataSource {
      *
      * @return a list of the entries in the database
      */
-    public List<Entry> getAllInfo() {
+    public List<Entry> getAllInfo(String pet) {
         List<Entry> allEntries = new ArrayList<>();
 
         Cursor cursor = db.query(FeedingInfoDbHelper.TABLE_NAME, allColumns, null, null, null, null, null);

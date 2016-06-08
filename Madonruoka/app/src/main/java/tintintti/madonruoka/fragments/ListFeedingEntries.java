@@ -1,6 +1,7 @@
 package tintintti.madonruoka.fragments;
 
 import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import java.util.List;
 public class ListFeedingEntries extends ListFragment {
     private EntryDataSource dataSource;
     private CustomArrayAdapter adapter;
+    private String petName = "pet";
+    private OnListItemClickedListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,6 +31,23 @@ public class ListFeedingEntries extends ListFragment {
         return inflater.inflate(R.layout.etry_list_fragment, container, false);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnListItemClickedListener) {
+            listener = (OnListItemClickedListener) context;
+        } else {
+            throw new ClassCastException(context.toString()
+                    + " must implemenet OnListItemClickedListener");
+        }
+
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -40,7 +60,7 @@ public class ListFeedingEntries extends ListFragment {
         try {
             dataSource.open();
 
-            List<Entry> values = dataSource.getAllInfo();
+            List<Entry> values = dataSource.getAllInfo(petName);
 
             System.out.println(getView());
 
@@ -59,7 +79,7 @@ public class ListFeedingEntries extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         Entry entry = (Entry) getListAdapter().getItem(position);
 
-        OnListItemClickedListener listener = (OnListItemClickedListener) getActivity();
+
         listener.onListItemClicked(entry);
     }
 
@@ -70,7 +90,7 @@ public class ListFeedingEntries extends ListFragment {
     public void removeEntryFromList(Entry entry) {
         dataSource.deleteInfo(entry);
 
-        List<Entry> values = dataSource.getAllInfo();
+        List<Entry> values = dataSource.getAllInfo(petName);
 
         adapter.clear();
         adapter.addAll(values);

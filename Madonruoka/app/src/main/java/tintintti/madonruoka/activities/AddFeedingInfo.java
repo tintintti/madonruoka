@@ -83,9 +83,11 @@ public class AddFeedingInfo extends AppCompatActivity implements DatePickerDialo
         boolean ate = ateView.isChecked();
         String extra = extraView.getText().toString();
 
+        String petName = getIntent().getStringExtra("petName");
+
         try {
             dataSource.open();
-            entry = dataSource.createInfo(date, food, amount, ate, extra);
+            entry = dataSource.createInfo(petName, date, food, amount, ate, extra);
         } catch (SQLException e) {
             e.printStackTrace();
         }

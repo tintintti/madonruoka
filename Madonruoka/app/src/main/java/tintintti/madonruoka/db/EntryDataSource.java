@@ -20,7 +20,8 @@ public class EntryDataSource {
     private FeedingInfoDbHelper dbHelper;
     private String[] allColumns = {FeedingInfoDbHelper.COLUMN_ID,
             FeedingInfoDbHelper.COLUMN_DATE, FeedingInfoDbHelper.COLUMN_FOODITEM,
-            FeedingInfoDbHelper.COLUMN_AMOUNT, FeedingInfoDbHelper.COLUMN_ATE, FeedingInfoDbHelper.COLUMN_EXTRA};
+            FeedingInfoDbHelper.COLUMN_AMOUNT, FeedingInfoDbHelper.COLUMN_ATE,
+            FeedingInfoDbHelper.COLUMN_EXTRA, FeedingInfoDbHelper.COLUMN_UNIT_OF_MEASURE};
 
     public EntryDataSource(Context context) {
         dbHelper = new FeedingInfoDbHelper(context);
@@ -44,7 +45,7 @@ public class EntryDataSource {
      * @param extra     extra notes
      * @return          Entry-object that was added to the database
      */
-    public Entry createInfo(String date, String food, double amount, boolean ate, String extra) {
+    public Entry createInfo(String date, String food, double amount, boolean ate, String extra, String unitOfMeasure) {
 
         ContentValues values = new ContentValues();
         values.put(FeedingInfoDbHelper.COLUMN_DATE, date);
@@ -52,6 +53,7 @@ public class EntryDataSource {
         values.put(FeedingInfoDbHelper.COLUMN_AMOUNT, amount);
         values.put(FeedingInfoDbHelper.COLUMN_ATE, ate);
         values.put(FeedingInfoDbHelper.COLUMN_EXTRA, extra);
+        values.put(FeedingInfoDbHelper.COLUMN_UNIT_OF_MEASURE, unitOfMeasure);
 
         long insertId = db.insert(FeedingInfoDbHelper.TABLE_NAME, null, values);
 
@@ -115,6 +117,7 @@ public class EntryDataSource {
         }
 
         entry.setExtra(cursor.getString(5));
+        entry.setUnitOfMeasure(cursor.getString(6));
 
         return entry;
     }

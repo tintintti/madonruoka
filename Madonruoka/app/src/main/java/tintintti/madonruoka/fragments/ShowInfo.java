@@ -65,8 +65,13 @@ public class ShowInfo extends Fragment {
 
         dateView.setText(entry.getDate());
         foodView.setText(entry.getFoodItem());
-        String amount = "" + entry.getAmount();
-        amountView.setText(amount);
+        String amount = "";
+        if (entry.getAmount() == Math.round(entry.getAmount())) {
+            amount = "" + Math.round(entry.getAmount());
+        } else {
+            amount = "" + entry.getAmount();
+        }
+        amountView.setText(amount + entry.getUnitOfMeasure());
         extraView.setText(entry.getExtra());
         if (entry.isAte()) {
             ateView.setImageResource(R.drawable.ic_done_24dp);

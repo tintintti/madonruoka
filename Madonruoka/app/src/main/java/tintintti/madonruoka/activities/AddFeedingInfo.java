@@ -5,10 +5,14 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import tintintti.madonruoka.R;
@@ -31,6 +35,7 @@ public class AddFeedingInfo extends AppCompatActivity implements DatePickerDialo
     private TextView dateView;
     private Calendar calendar;
     private SimpleDateFormat format;
+    private String unitOfMeasure = "pcs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +90,7 @@ public class AddFeedingInfo extends AppCompatActivity implements DatePickerDialo
 
         try {
             dataSource.open();
-            entry = dataSource.createInfo(date, food, amount, ate, extra);
+            entry = dataSource.createInfo(date, food, amount, ate, extra, unitOfMeasure);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -120,5 +125,20 @@ public class AddFeedingInfo extends AppCompatActivity implements DatePickerDialo
         Calendar c = Calendar.getInstance();
         c.set(year, monthOfYear, dayOfMonth);
         dateView.setText(format.format(c.getTimeInMillis()));
+    }
+
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.radio_pcs:
+                if(checked)
+                    unitOfMeasure = "pcs";
+                break;
+            case R.id.radio_g:
+                if(checked)
+                    unitOfMeasure = "g";
+                break;
+        }
     }
 }

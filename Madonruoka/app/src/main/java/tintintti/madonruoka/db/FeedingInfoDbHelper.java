@@ -16,17 +16,19 @@ public class    FeedingInfoDbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_AMOUNT = "amount";
     public static final String COLUMN_ATE = "ate";
     public static final String COLUMN_EXTRA = "extra";
+    public static final String COLUMN_UNIT_OF_MEASURE = "unitOfMeasure";
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "FeedingInfo.db";
 
     private static final String DATABASE_CREATE = "create table " + TABLE_NAME + "("
-            + COLUMN_ID       + " integer primary key autoincrement, "
-            + COLUMN_DATE     + " text not null, "
-            + COLUMN_FOODITEM + " text, "
-            + COLUMN_AMOUNT   + " real, "
-            + COLUMN_ATE      + " integer, "
-            + COLUMN_EXTRA    + " text);";
+            + COLUMN_ID              + " integer primary key autoincrement, "
+            + COLUMN_DATE            + " text not null, "
+            + COLUMN_FOODITEM        + " text, "
+            + COLUMN_AMOUNT          + " real, "
+            + COLUMN_ATE             + " integer, "
+            + COLUMN_EXTRA           + " text,"
+            + COLUMN_UNIT_OF_MEASURE + " text);";
 
 
     public FeedingInfoDbHelper(Context context) {

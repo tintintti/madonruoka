@@ -5,6 +5,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 /**
  * Class stores the feeding info of one entry
@@ -16,6 +17,7 @@ public class Entry implements Serializable, Comparable<Entry> {
     private double amount;
     private String extra;
     private boolean ate;
+    private String unitOfMeasure;
 
     public String getExtra() {
         return extra;
@@ -65,10 +67,20 @@ public class Entry implements Serializable, Comparable<Entry> {
         this.amount = amount;
     }
 
+    public void setUnitOfMeasure(String unit) { this.unitOfMeasure = unit; }
+
+    public String getUnitOfMeasure() { return this.unitOfMeasure; }
+
     @Override
     public String toString() {
+        String a = "";
+        if (amount == Math.round(amount)) {
+            a = "" + Math.round(amount);
+        } else {
+            a = "" + amount;
+        }
 
-        return date + " " + " " + amount + " " + foodItem;
+        return date + " " + " " + a + unitOfMeasure + " " + foodItem;
     }
 
 

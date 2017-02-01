@@ -1,0 +1,10 @@
+.idea/
+.Rhistory
+Madonruoka/*.iml
+Madonruoka/.gradle
+Madonruoka/local.properties
+Madonruoka/.idea/
+Madonruoka/.DS_Store
+Madonruoka/build
+Madonruoka/captures	
+
